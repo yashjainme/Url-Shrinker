@@ -1,20 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import ShortUrl from './models/shortUrl.js';
+import { configDotenv } from 'dotenv'; // Remove the { path: '.env' }
 const app = express();
-import { configDotenv } from 'dotenv';
-app.use(express.urlencoded({extended: false}))
 
-const result = configDotenv({ path: '.env' });
+app.use(express.urlencoded({ extended: false }));
+
+const result = configDotenv(); // Remove the { path: '.env' }
+
 if (result.error) {
-    throw result.error;
-  }
-  
-const MONGO_URI = process.env.MONGO_URI
+  throw result.error;
+}
+
+const MONGO_URI = process.env.MONGO_URI;
 
 const connectToMongo = () => {
-    mongoose.connect(MONGO_URI);
-    console.log('Connected');
+  mongoose.connect(MONGO_URI);
+  console.log('Connected');
 }
 
 connectToMongo()
